@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-
-# Create your views here.
+from .forms import FormularioRegistroUsuario
 
 def index(request):
     "Vista para renderizar la página inicial"
@@ -11,3 +10,13 @@ def lista_usuarios(request):
     "Vista para renderizar la página donde se mostrarán los datos de usuarios"
     usuarios = User.objects.all()
     return render(request, 'usuarios.html', {'usuarios': usuarios})
+
+def registro_usuario(request):
+    if request.method == 'POST':
+        form = FormularioRegistroUsuario(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = FormularioRegistroUsuario()
+    return render(request, 'registro_usuario.html', {'form':form})
