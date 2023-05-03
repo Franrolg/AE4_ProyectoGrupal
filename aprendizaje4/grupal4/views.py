@@ -26,7 +26,7 @@ def registrar_proveedor(request):
         form = FormularioRegistroProveedor(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return render(request, 'proveedor.html', {'form': FormularioRegistroProveedor(), 'message': 'Proveedor guardado en la base de datos'})
     else:
         form = FormularioRegistroProveedor()
     return render(request, 'proveedor.html', {'form': form})

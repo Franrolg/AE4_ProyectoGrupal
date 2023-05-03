@@ -4,6 +4,11 @@
 {% block contenido %}
 <div class="col-md-6 offset-md-3">
     <h1 class='text-center mt-2 mb-5'> PROVEEDORES </h1>
+    {% if message %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
     <form action="" method="POST">
         {% csrf_token %}
         {% if form.errors %}
