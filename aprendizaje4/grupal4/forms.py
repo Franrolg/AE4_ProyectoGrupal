@@ -32,7 +32,17 @@ class FormularioRegistroUsuario(UserCreationForm):
 
 class FormularioRegistroProveedor(forms.ModelForm):
     nombre = forms.CharField(label="", max_length=50, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Nombre'}))
+    actividad = forms.CharField(label="", max_length=150, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Actividad'}))
+    email = forms.EmailField(label="", max_length=100, widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder': 'Email'}))
+    telefono = forms.CharField(label="", max_length=15, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Teléfono'}))
 
     class Meta:
         model = Proveedor
-        fields = ['nombre']
+        fields = ['nombre', 'actividad', 'email', 'telefono']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    
+        self.fields['email'].help_text = '<span class="form-text text-muted"><small>El email no debe estar registrado anteriormente</small></span>'
+        self.fields['telefono'].help_text = '<span class="form-text text-muted"><small>Ingrese teléfono con el siguiente formato: +56 9 12345678</small></span>'
+

@@ -23,10 +23,10 @@ def registro_usuario(request):
 
 def registrar_proveedor(request):
     if request.method == 'POST':
-        form = FormularioRegistroProveedor()
+        form = FormularioRegistroProveedor(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('proveedor')
+            return redirect('index')
     else:
         form = FormularioRegistroProveedor()
     return render(request, 'proveedor.html', {'form': form})
