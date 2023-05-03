@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Proveedor
 
 class FormularioRegistroUsuario(UserCreationForm):
 
@@ -28,3 +29,10 @@ class FormularioRegistroUsuario(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Repetir contraseña'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Para verificar, introduzca la misma contraseña anterior.</small></span>'
+
+class FormularioRegistroProveedor(forms.ModelForm):
+    nombre = forms.CharField(label="", max_length=50, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Nombre'}))
+
+    class Meta:
+        model = Proveedor
+        fields = ['nombre']

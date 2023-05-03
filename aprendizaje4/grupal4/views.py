@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from .forms import FormularioRegistroUsuario
+from .forms import FormularioRegistroUsuario, FormularioRegistroProveedor
 
 def index(request):
     "Vista para renderizar la página inicial"
@@ -16,7 +16,17 @@ def registro_usuario(request):
         form = FormularioRegistroUsuario(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('usuarios')
     else:
         form = FormularioRegistroUsuario()
     return render(request, 'registro_usuario.html', {'form':form})
+
+def registrar_proveedor(request):
+    if request.method == 'POST':
+        form = FormularioRegistroProveedor()
+        if form.is_valid():
+            form.save()
+            return redirect('proveedor')
+    else:
+        form = FormularioRegistroProveedor()
+    return render(request, 'proveedor.html', {'form': form})
